@@ -5,10 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "APP_USER")
 public class User {
 
@@ -22,4 +24,18 @@ public class User {
     @Column(nullable = false, unique = true)
     private String mobile;
 
+    @ManyToMany(mappedBy = "users")
+    private List<Group> groups;
+
+    public User() {
+        this.groups = new ArrayList<>();
+    }
+
+    public User(int userId, String userName, String password, String mobile) {
+        this.userId = userId;
+        this.userName = userName;
+        this.password = password;
+        this.mobile = mobile;
+        this.groups = new ArrayList<>();
+    }
 }
